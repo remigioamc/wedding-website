@@ -556,6 +556,11 @@ Features-stack
     padding-right: 100px;
     border-right: solid 1px $keyline-color;
   }
+  .centercol {
+    padding-right: 50px;
+    padding-left: 50px;
+    border-right: solid 1px $keyline-color;
+  }
   .rightcol {
     padding-left: 100px;
   }
@@ -648,9 +653,25 @@ Features-stack
 Instagram
 ========================================================================== */
 #instagram {
-  img {
-    width: 100%;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../img/instagram.png') center center;
+  background-size: cover;
+  height: 600px;
+  h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 29px;
   }
+  p{
+    color: #ffffff;
+    font-weight: 600;
+  }
+  a{
+    font-weight: bold;
+  }
+  
 }
 
 /* ==========================================================================
