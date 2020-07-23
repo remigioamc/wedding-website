@@ -222,6 +222,12 @@
         border-right: none;
     }
 
+    .events .centercol {
+        padding: 0 15px;
+        margin-bottom: 15px;
+        border-right: none;
+    }
+
     .events .rightcol {
         padding: 0 20px;
     }
