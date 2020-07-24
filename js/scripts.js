@@ -48,6 +48,31 @@ $(document).ready(function () {
         offset: '75%'
     });
 
+    /***************** Countdown Timer ******************/
+
+    var second = 1000;
+    var minute = second * 60;
+    var hour = minute * 60;
+    var day = hour * 24;
+
+    var countDown = new Date('Jul 23, 2020 14:00:00').getTime(),
+    x = setInterval(function() {    
+
+      var now = new Date().getTime();
+      var distance = countDown - now;
+
+      document.getElementById('days').innerText = Math.floor(distance / (day)),
+        document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+        document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+      //do something later when date is reached
+      if (distance < 0) {
+        document.getElementById('countdown').classList.add('hide');
+      }
+
+    }, second)
+
     /***************** Initiate Flexslider ******************/
     $('.flexslider').flexslider({
         animation: "slide"
