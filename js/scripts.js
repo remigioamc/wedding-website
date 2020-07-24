@@ -55,7 +55,7 @@ $(document).ready(function () {
     var hour = minute * 60;
     var day = hour * 24;
 
-    var countDown = new Date('Jul 23, 2020 14:00:00').getTime(),
+    var countDown = new Date('Aug 14, 2020 13:00:00').getTime(),
     x = setInterval(function() {    
 
       var now = new Date().getTime();
