@@ -264,6 +264,167 @@ $(document).ready(function () {
 
 /********************** Extras **********************/
 
+"use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var slides = [{
+  title: "Camino Real ",
+  subtitle: "Sumiya Cuernavaca",
+  description: "Calle Antiguo Camino a Jiutepec S/N, Jose G. Parres, 62564 Jiutepec, Mor.",
+  image: "https://media-cdn.tripadvisor.com/media/photo-s/0e/2c/15/81/fachada.jpg"
+}, {
+  title: "Hacienda de Cortes",
+  subtitle: "Hotel & Spa",
+  description: "Plaza Kennedy 90, Atlacomulco, 62560 Jiutepec, Mor.",
+  image: "https://media-cdn.tripadvisor.com/media/photo-s/05/46/33/ce/portada.jpg"
+}, {
+  title: "Finca El Amate",
+  subtitle: "Hotel",
+  description: "Antiguo Camino a Jiutepec No. 81, San Jose, 62460 Jiutepec, Mor.",
+  image: "https://cdn0.bodas.com.mx/emp/fotos/0/8/9/1/img-1218_5_240891-1561068289.jpg"
+}];
+
+function useTilt(active) {
+  var ref = React.useRef(null);
+  React.useEffect(function () {
+    if (!ref.current || !active) {
+      return;
+    }
+
+    var state = {
+      rect: undefined,
+      mouseX: undefined,
+      mouseY: undefined
+    };
+    var el = ref.current;
+
+    var handleMouseMove = function handleMouseMove(e) {
+      if (!el) {
+        return;
+      }
+
+      if (!state.rect) {
+        state.rect = el.getBoundingClientRect();
+      }
+
+      state.mouseX = e.clientX;
+      state.mouseY = e.clientY;
+      var px = (state.mouseX - state.rect.left) / state.rect.width;
+      var py = (state.mouseY - state.rect.top) / state.rect.height;
+      el.style.setProperty("--px", px);
+      el.style.setProperty("--py", py);
+    };
+
+    el.addEventListener("mousemove", handleMouseMove);
+    return function () {
+      el.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [active]);
+  return ref;
+}
+
+var initialState = {
+  slideIndex: 0
+};
+
+var slidesReducer = function slidesReducer(state, event) {
+  if (event.type === "NEXT") {
+    return _objectSpread(_objectSpread({}, state), {}, {
+      slideIndex: (state.slideIndex + 1) % slides.length
+    });
+  }
+
+  if (event.type === "PREV") {
+    return _objectSpread(_objectSpread({}, state), {}, {
+      slideIndex: state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1
+    });
+  }
+};
+
+function Slide(_ref) {
+  var slide = _ref.slide,
+      offset = _ref.offset;
+  var active = offset === 0 ? true : null;
+  var ref = useTilt(active);
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    className: "slide",
+    "data-active": active,
+    style: {
+      "--offset": offset,
+      "--dir": offset === 0 ? 0 : offset > 0 ? 1 : -1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "slideBackground",
+    style: {
+      backgroundImage: "url('".concat(slide.image, "')")
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "slideContent",
+    style: {
+      backgroundImage: "url('".concat(slide.image, "')")
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "slideContentInner"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "slideTitle"
+  }, slide.title), /*#__PURE__*/React.createElement("h3", {
+    className: "slideSubtitle"
+  }, slide.subtitle), /*#__PURE__*/React.createElement("p", {
+    className: "slideDescription"
+  }, slide.description))));
+}
+
+function App() {
+  var _React$useReducer = React.useReducer(slidesReducer, initialState),
+      _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
+      state = _React$useReducer2[0],
+      dispatch = _React$useReducer2[1];
+
+  return /*#__PURE__*/React.createElement("div", {
+    className: "slides"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return dispatch({
+        type: "PREV"
+      });
+    }
+  }, "\u2039"), [].concat(slides, slides, slides).map(function (slide, i) {
+    var offset = slides.length + (state.slideIndex - i);
+    return /*#__PURE__*/React.createElement(Slide, {
+      slide: slide,
+      offset: offset,
+      key: i
+    });
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return dispatch({
+        type: "NEXT"
+      });
+    }
+  }, "\u203A"));
+}
+
+var elApp = document.getElementById("hotel");
+ReactDOM.render( /*#__PURE__*/React.createElement(App, null), elApp);
+
 // Google map
 function initMap() {
     var location = {lat: 18.893925, lng: -99.205482};
