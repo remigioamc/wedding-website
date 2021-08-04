@@ -31,8 +31,22 @@
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript"
+        src="jquery/jquery.ui.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function(){
+        $("#covid").dialog({modal: true});
+    });
+</script>
 </head>
 <body id="top">
+    <div id="covid" title="Medidas COVID">
+        <h1>Medidas COVID</h1>
+        <p><b>Todos</b> los invitados tendrán que llevar una prueba COVID negativa para acceder al evento.</p>
+        <p>Si tienes síntomas o estuviste con alguien enfermo por favor notificanos y <b>NO</b> asistas al evento.</p>
+    </div>
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -187,7 +201,7 @@
                     <p><strong>15 de Agosto</strong></p>
 
                     <h5>Brunch <span class="time">12PM-5PM</span></h5>
-                    <p>Nada mejor que revivir los mejores momentos de la boda que algo de comer y unas cervezas para bajar la cruda.</p>
+                    <p>Nada mejor que revivir los mejores momentos de la boda que algo de comer y unas cervezas para bajar la cruda. El lugar del evento es <b>Paseo de la reforma 287, lomas de cuernavaca</b> </p>
                 </div>
                 <div class="wp6">
                     <h5>Despedida <span class="time">5PM-7PM</span></h5>
